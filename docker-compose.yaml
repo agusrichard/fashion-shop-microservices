@@ -23,9 +23,7 @@ services:
     ports:
       - 8000:8000
     networks:
-      fashion-shop-microservices:
-        aliases:
-          - fashion-shop-microservices-network-auth-service
+      - fashion-shop-microservices
     depends_on:
       - auth-service-db
   auth-service-db:
@@ -34,14 +32,30 @@ services:
     ports:
       - 5432:5432
     env_file:
-      - ./auth-service/.env
+      - .env
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${DB}
+      - POSTGRES_USER=${AUTH_SERVICE_USER}
+      - POSTGRES_PASSWORD=${AUTH_SERVICE_PASSWORD}
+      - POSTGRES_DB=${AUTH_SERVICE_DB}
     volumes:
       - auth-data:/var/lib/postgresql/data
-
+    networks:
+      - fashion-shop-microservices
+  new-service:
+    build:
+      context: ./
+      dockerfile: ./new-service/Dockerfile
+    container_name: fashion-shop-microservices-new-service
+    command: flask run --host=0.0.0.0 --port=5000
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=./new-service/app.py
+    volumes:
+      - ./:/var/www/new-service
+    ports:
+      - 5000:5000
+    networks:
+      - fashion-shop-microservices
 volumes:
   auth-data:
     driver: local
