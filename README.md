@@ -1,2 +1,2 @@
-# Python Microservices with RabbitMQ
-Python Microservices Backend with RabbitMQ
+# E-Commerce Website for Fashion Built with Microservice Architecture
+E-Commerce Website for Fashion Built with Microservice Architecture
