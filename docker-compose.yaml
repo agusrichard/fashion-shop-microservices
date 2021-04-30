@@ -18,6 +18,11 @@ services:
       dockerfile: ./auth-service/Dockerfile
     container_name: fashion-shop-microservices-auth-service
     command: bash -c "python auth-service/auth_service/manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env
+    environment:
+      - AUTH_SERVICE_SECRET_KEY=${AUTH_SERVICE_SECRET_KEY}
+      - AUTH_SERVICE_DEBUG=${AUTH_SERVICE_DEBUG}
     volumes:
       - ./:/var/www/auth-service
     ports:
@@ -30,13 +35,13 @@ services:
     image: postgres:13.2
     container_name: fashion-shop-microservices-auth-service-db
     ports:
-      - 5432:5432
+      - ${AUTH_SERVICE_DB_PORT}:${AUTH_SERVICE_DB_PORT}
     env_file:
       - .env
     environment:
-      - POSTGRES_USER=${AUTH_SERVICE_USER}
-      - POSTGRES_PASSWORD=${AUTH_SERVICE_PASSWORD}
-      - POSTGRES_DB=${AUTH_SERVICE_DB}
+      - POSTGRES_USER=${AUTH_SERVICE_DB_USER}
+      - POSTGRES_PASSWORD=${AUTH_SERVICE_DB_PASSWORD}
+      - POSTGRES_DB=${AUTH_SERVICE_DB_NAME}
     volumes:
       - auth-data:/var/lib/postgresql/data
     networks:
