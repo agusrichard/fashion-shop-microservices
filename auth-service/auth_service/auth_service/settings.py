@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['AUTH_SERVICE_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ['AUTH_SERVICE_DEBUG'])
 
-ALLOWED_HOSTS = ['auth-service']
+ALLOWED_HOSTS = ['auth-service', 'localhost']
 
 
 # Application definition
