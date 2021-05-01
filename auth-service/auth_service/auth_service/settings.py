@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['AUTH_SERVICE_SECRET_KEY']
+SECRET_KEY = os.environ.get('AUTH_SERVICE_SECRET_KEY') or 'secretkey'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ['AUTH_SERVICE_DEBUG'])
+DEBUG = bool(os.environ.get('AUTH_SERVICE_DEBUG')) or True
 
 ALLOWED_HOSTS = ['auth-service', 'localhost']
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -77,11 +78,11 @@ WSGI_APPLICATION = 'auth_service.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['AUTH_SERVICE_DB_NAME'],
-        'USER': os.environ['AUTH_SERVICE_DB_USER'],
-        'PASSWORD': os.environ['AUTH_SERVICE_DB_PASSWORD'],
-        'HOST': os.environ['AUTH_SERVICE_DB_HOST'],
-        'PORT': os.environ['AUTH_SERVICE_DB_PORT'],
+        'NAME': os.environ.get('AUTH_SERVICE_DB_NAME'),
+        'USER': os.environ.get('AUTH_SERVICE_DB_USER'),
+        'PASSWORD': os.environ.get('AUTH_SERVICE_DB_PASSWORD'),
+        'HOST': os.environ.get('AUTH_SERVICE_DB_HOST'),
+        'PORT': os.environ.get('AUTH_SERVICE_DB_PORT'),
     }
 }
 
