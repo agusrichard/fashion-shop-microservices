@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('AUTH_SERVICE_SECRET_KEY') or 'secretkey'
+SECRET_KEY = os.environ.get('AUTH_SERVICE_SECRET_KEY') or 'ThisIsSecret'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('AUTH_SERVICE_DEBUG')) or True
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -70,6 +70,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'auth_service.wsgi.application'
+
+AUTH_USER_MODEL = 'accounts.User'
 
 
 # Database

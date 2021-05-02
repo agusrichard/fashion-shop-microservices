@@ -17,7 +17,7 @@ services:
       context: ./
       dockerfile: ./auth-service/Dockerfile
     container_name: fashion-shop-microservices-auth-service
-    command: bash -c "python auth-service/auth_service/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python auth-service/manage.py runserver 0.0.0.0:8000"
     env_file:
       - .env
     environment:
